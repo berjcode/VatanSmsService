@@ -1,11 +1,14 @@
-﻿namespace VatanSmsService.Nuget.Models;
+﻿using static System.Net.WebRequestMethods;
+
+namespace VatanSmsService.Nuget.Models;
 
 public class CreateSmsModel
 {
-    public string ApiId { get; set; }
-    public string ApiKey { get; set; }
-    public string Message { get; set; }
-    public string MessageType { get; set; }
-    public string Sender { get; set; }
-    public string[] Phones { get; set; }
+    public string api_id { get; set; } 
+    public string api_key { get; set; } 
+    public string api_url { get; set; } 
+    public string message { get; set; }
+    public string message_type { get; set; }
+    public string sender { get; set; }
+    public string[] phones { get; set; }
 }

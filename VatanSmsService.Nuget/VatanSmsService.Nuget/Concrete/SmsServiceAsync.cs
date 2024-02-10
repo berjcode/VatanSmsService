@@ -6,53 +6,47 @@ using VatanSmsService.Nuget.Constants;
 
 namespace VatanSmsService.Nuget.Concrete;
 
-public class VatanSmsServiceAsync : IVatanSmsServiceAsync
+public class SmsServiceAsync : ISmsServiceAsync
 {
-    private readonly string _apiUrl;
-
-    public VatanSmsServiceAsync(string apiUrl)
-    {
-        _apiUrl = apiUrl;
-    }
-    public async Task<SmsMessageResult> SendTextMessageAsync(string message, List<string> numbers, CreateSmsModel createSmsModel)
+    public async Task<SmsMessageResult> SendTextMessageAsync(string message, List<string> numbers,string  _apiUrl,CreateSmsModel createSmsModel)
     {
         SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms);
+        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
 
         return new SmsMessageResult
         {
             Success = IsSuccessful(response),
-            ErrorMessage = response.ErrorMessage
+            ResponseContent = response.Content
         };
     }
 
-    public async Task<bool> SendTextMessageReturnBoolAsync(string message, List<string> numbers, CreateSmsModel createSmsModel)
+    public async Task<bool> SendTextMessageReturnBoolAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
     {
         SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms);
+        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
 
         return IsSuccessful(response);
     }
 
-    public async Task<RestResponse> SendTextMessageReturnResponseAsync(string message, List<string> numbers, CreateSmsModel createSmsModel)
+    public async Task<RestResponse> SendTextMessageReturnResponseAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
     {
         SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        return await ExecuteSmsRequestAsync(sms);
+        return await ExecuteSmsRequestAsync(sms, _apiUrl);
     }
 
-    public async Task<string> SendTextMessageReturnStringAsync(string message, List<string> numbers, CreateSmsModel createSmsModel)
+    public async Task<string> SendTextMessageReturnStringAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
     {
         SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms);
+        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
 
         return IsSuccessful(response) ? SmsServiceConstans.SuccessfulSmsMessage : SmsServiceConstans.NotSuccessfulSmsMessage;
     }
 
     // Helper Methods
-    private async Task<RestResponse> ExecuteSmsRequestAsync(SmsModel sms)
+    private async Task<RestResponse> ExecuteSmsRequestAsync(SmsModel sms, string _apiUrl)
     {
         var client = new RestClient(_apiUrl);
-        var request = CreateRestRequest();
+        var request = CreateRestRequest(_apiUrl);
 
         var body = JsonConvert.SerializeObject(sms);
         request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
@@ -60,7 +54,7 @@ public class VatanSmsServiceAsync : IVatanSmsServiceAsync
         return await client.ExecuteAsync(request);
     }
 
-    private RestRequest CreateRestRequest()
+    private RestRequest CreateRestRequest(string _apiUrl)
     {
         var request = new RestRequest(_apiUrl, Method.Post);
         request.AddHeader(SmsServiceConstans.ContentTypeExpression, SmsServiceConstans.ApplicationJson);
@@ -77,11 +71,11 @@ public class VatanSmsServiceAsync : IVatanSmsServiceAsync
     {
         return new SmsModel
         {
-            ApiId = createSmsModel.ApiId,
-            ApiKey = createSmsModel.ApiKey,
-            Message = createSmsModel.Message,
-            MessageType = createSmsModel.MessageType,
-            Sender = createSmsModel.Sender,
+            ApiId = createSmsModel.api_id,
+            ApiKey = createSmsModel.api_key,
+            Message = createSmsModel.message_type,
+            MessageType = createSmsModel.message_type,
+            Sender = createSmsModel.sender,
             Phones = numaralar.ToArray()
         };
     }

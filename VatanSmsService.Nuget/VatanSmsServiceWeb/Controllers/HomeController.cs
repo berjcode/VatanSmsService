@@ -29,13 +29,9 @@ namespace VatanSmsServiceWeb.Controllers
         [HttpPost]
         public IActionResult Index(CreateSmsModel createSmsModel)
         {
-            createSmsModel.api_url = "https://api.vatansms.net/api/v1/1toN";
-            createSmsModel.api_id = "22276b28072392b4d7767b21";
-            createSmsModel.api_key = "8f91c6038a85325c2bc9eb8d";
-            createSmsModel.message_type = "normal";
-            createSmsModel.sender = "MIS SOFT D.";
+            
 
-           var result =  _smsService.SendTextMessage(createSmsModel);
+            var result =  _smsService.SendTextMessageReturnString(createSmsModel);
             return View(result);
         }
 
