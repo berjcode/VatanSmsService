@@ -9,15 +9,18 @@ namespace VatanSmsServiceWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ISmsService _smsService;
+        private readonly ISmsServiceAsync _smsServiceAsync;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(
              ISmsService smsService,
             ILogger<HomeController> logger
-           )
+,
+            ISmsServiceAsync smsServiceAsync)
         {
             _logger = logger;
             _smsService = smsService;
+            _smsServiceAsync = smsServiceAsync;
         }
 
         [HttpGet]
@@ -27,11 +30,11 @@ namespace VatanSmsServiceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CreateSmsModel createSmsModel)
+        public async Task<IActionResult> Index(CreateSmsModel createSmsModel)
         {
-            
+           
 
-            var result =  _smsService.SendTextMessageReturnString(createSmsModel);
+            var result = await _smsServiceAsync.SendTextMessageReturnStringAsync(createSmsModel);
             return View(result);
         }
 

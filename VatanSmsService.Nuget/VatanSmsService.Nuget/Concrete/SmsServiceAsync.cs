@@ -8,10 +8,9 @@ namespace VatanSmsService.Nuget.Concrete;
 
 public class SmsServiceAsync : ISmsServiceAsync
 {
-    public async Task<SmsMessageResult> SendTextMessageAsync(string message, List<string> numbers,string  _apiUrl,CreateSmsModel createSmsModel)
+    public async Task<SmsMessageResult> SendTextMessageAsync(CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
+        RestResponse response = await ExecuteSmsRequestAsync(createSmsModel);
 
         return new SmsMessageResult
         {
@@ -20,35 +19,33 @@ public class SmsServiceAsync : ISmsServiceAsync
         };
     }
 
-    public async Task<bool> SendTextMessageReturnBoolAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
+    public async Task<bool> SendTextMessageReturnBoolAsync(CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
+        RestResponse response = await ExecuteSmsRequestAsync(createSmsModel);
 
         return IsSuccessful(response);
     }
 
-    public async Task<RestResponse> SendTextMessageReturnResponseAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
+    public async Task<RestResponse> SendTextMessageReturnResponseAsync(CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        return await ExecuteSmsRequestAsync(sms, _apiUrl);
+       
+        return await ExecuteSmsRequestAsync(createSmsModel);
     }
 
-    public async Task<string> SendTextMessageReturnStringAsync(string message, List<string> numbers, string _apiUrl, CreateSmsModel createSmsModel)
+    public async Task<string> SendTextMessageReturnStringAsync(CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
-        RestResponse response = await ExecuteSmsRequestAsync(sms, _apiUrl);
+        RestResponse response = await ExecuteSmsRequestAsync(createSmsModel);
 
         return IsSuccessful(response) ? SmsServiceConstans.SuccessfulSmsMessage : SmsServiceConstans.NotSuccessfulSmsMessage;
     }
 
     // Helper Methods
-    private async Task<RestResponse> ExecuteSmsRequestAsync(SmsModel sms, string _apiUrl)
+    private async Task<RestResponse> ExecuteSmsRequestAsync(CreateSmsModel createSmsModel)
     {
-        var client = new RestClient(_apiUrl);
-        var request = CreateRestRequest(_apiUrl);
+        var client = new RestClient(createSmsModel.api_url);
+        var request = CreateRestRequest(createSmsModel.api_url);
 
-        var body = JsonConvert.SerializeObject(sms);
+        var body = JsonConvert.SerializeObject(createSmsModel);
         request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
 
         return await client.ExecuteAsync(request);
@@ -67,16 +64,4 @@ public class SmsServiceAsync : ISmsServiceAsync
         return response.StatusCode >= System.Net.HttpStatusCode.OK && response.StatusCode < System.Net.HttpStatusCode.Ambiguous;
     }
 
-    private SmsModel CreateSmsModel(string mesaj, List<string> numaralar, CreateSmsModel createSmsModel)
-    {
-        return new SmsModel
-        {
-            ApiId = createSmsModel.api_id,
-            ApiKey = createSmsModel.api_key,
-            Message = createSmsModel.message_type,
-            MessageType = createSmsModel.message_type,
-            Sender = createSmsModel.sender,
-            Phones = numaralar.ToArray()
-        };
-    }
 }
