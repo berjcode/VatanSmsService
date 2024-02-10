@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
-using VatanSmsService.Nuget.Abstract;
+﻿using RestSharp;
+using Newtonsoft.Json;
 using VatanSmsService.Nuget.Models;
+using VatanSmsService.Nuget.Abstract;
+using VatanSmsService.Nuget.Constants;
 
 namespace VatanSmsService.Nuget.Concrete;
 
@@ -13,9 +14,9 @@ public class VatanSmsService : IVatanSmsService
     {
         _apiUrl = apiUrl;
     }
-    public SmsMessageResult SendTextMessage(string mesaj, List<string> numaralar)
+    public SmsMessageResult SendTextMessage(string message, List<string> numbers, CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(mesaj, numaralar, createSmsModel);
+        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
 
 
         var client = new RestClient(_apiUrl);
@@ -24,7 +25,7 @@ public class VatanSmsService : IVatanSmsService
 
         var body = JsonConvert.SerializeObject(sms);
 
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
 
         RestResponse response = client.Execute(request);
 
@@ -32,13 +33,12 @@ public class VatanSmsService : IVatanSmsService
         {
             Success = IsSuccessful(response),
             ErrorMessage = response.ErrorMessage,
-            SentCount = numaralar.Count
         };
     }
 
-    public bool SendTextMessageReturnBool(string mesaj, List<string> numaralar,CreateSmsModel createSmsModel)
+    public bool SendTextMessageReturnBool(string message, List<string> numbers,CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(mesaj, numaralar, createSmsModel);
+        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
 
 
         var client = new RestClient(_apiUrl);
@@ -47,7 +47,7 @@ public class VatanSmsService : IVatanSmsService
 
         var body = JsonConvert.SerializeObject(sms);
 
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
 
         RestResponse response = client.Execute(request);
 
@@ -59,76 +59,48 @@ public class VatanSmsService : IVatanSmsService
         return false;
     }
 
-    public int SendTextMessageReturnInt(string mesaj, List<string> numaralar, CreateSmsModel createSmsModel)
+    public string SendTextMessageReturnString(string message, List<string> numbers, CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(mesaj, numaralar, createSmsModel);
+        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
 
         var client = new RestClient(_apiUrl);
         var request = CreateRestRequest();
 
         var body = JsonConvert.SerializeObject(sms);
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
 
         RestResponse response = client.Execute(request);
 
         if (IsSuccessful(response))
         {
-            
-            return numaralar.Count;
+            return SmsServiceConstans.SuccessfulSmsMessage;
         }
         else
         {
-            return 0;
+            return SmsServiceConstans.NotSuccessfulSmsMessage;
         }
     }
 
-    public string SendTextMessageReturnString(string mesaj, List<string> numaralar, CreateSmsModel createSmsModel)
+    public RestResponse SendTextMessageReturnResponse(string message, List<string> numbers, CreateSmsModel createSmsModel)
     {
-        SmsModel sms = CreateSmsModel(mesaj, numaralar, createSmsModel);
+        SmsModel sms = CreateSmsModel(message, numbers, createSmsModel);
 
         var client = new RestClient(_apiUrl);
         var request = CreateRestRequest();
 
         var body = JsonConvert.SerializeObject(sms);
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
-
-        RestResponse response = client.Execute(request);
-
-        if (IsSuccessful(response))
-        {
-            return "SMS başarıyla gönderildi.";
-        }
-        else
-        {
-            return "SMS gönderimi başarısız oldu.";
-        }
-    }
-
-    public RestResponse SendTextMessageReturnResponse(string mesaj, List<string> numaralar, CreateSmsModel createSmsModel)
-    {
-        SmsModel sms = CreateSmsModel(mesaj, numaralar, createSmsModel);
-
-        var client = new RestClient(_apiUrl);
-        var request = CreateRestRequest();
-
-        var body = JsonConvert.SerializeObject(sms);
-        request.AddParameter("application/json", body, ParameterType.RequestBody);
+        request.AddParameter(SmsServiceConstans.ApplicationJson, body, ParameterType.RequestBody);
 
         RestResponse response = client.Execute(request);
 
         return response;
     }
 
-    public void SendTextMessageVoid(string mesaj, List<string> numaralar, CreateSmsModel createSmsModel)
-    {
-        throw new NotImplementedException();
-    }
-
     // Helper Methods
     private RestRequest CreateRestRequest()
     {
         var request = new RestRequest(_apiUrl, Method.Post);
-        request.AddHeader("Content-Type", "application/json");
+        request.AddHeader(SmsServiceConstans.ContentTypeExpression, SmsServiceConstans.ApplicationJson);
 
         return request;
     }
