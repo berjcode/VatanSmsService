@@ -71,14 +71,7 @@ public class VatanSmsService : IVatanSmsService
 
         RestResponse response = client.Execute(request);
 
-        if (IsSuccessful(response))
-        {
-            return SmsServiceConstans.SuccessfulSmsMessage;
-        }
-        else
-        {
-            return SmsServiceConstans.NotSuccessfulSmsMessage;
-        }
+        return IsSuccessful(response) ? SmsServiceConstans.SuccessfulSmsMessage : SmsServiceConstans.NotSuccessfulSmsMessage;
     }
 
     public RestResponse SendTextMessageReturnResponse(string message, List<string> numbers, CreateSmsModel createSmsModel)
