@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
+﻿using RestSharp;
+using Newtonsoft.Json;
+using VatanSmsService.Nuget.Models;
 using VatanSmsService.Nuget.Abstract;
 using VatanSmsService.Nuget.Constants;
-using VatanSmsService.Nuget.Models;
 
 namespace VatanSmsService.Nuget.Concrete;
 
