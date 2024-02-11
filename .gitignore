@@ -41,3 +41,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+/VatanSmsService.Nuget/VatanSmsService.Nuget/obj/Debug/net7.0/VatanSmsService.Nuget.AssemblyInfo.cs
+/VatanSmsService.Nuget/VatanSmsService.Nuget/obj/Debug/net7.0/VatanSmsService.Nuget.AssemblyInfoInputs.cache
+/VatanSmsService.Nuget/VatanSmsService.Nuget/obj/Debug/net7.0/VatanSmsService.Nuget.csproj.AssemblyReference.cache
