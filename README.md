@@ -69,6 +69,16 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
     * You must enter your own ID and keys that you received from vatansms.
    # Controller
    ```
+        private readonly ISmsService _smsService;
+        private readonly ISmsServiceAsync _smsServiceAsync;
+
+        public HomeController(
+            ISmsService smsService
+            ISmsServiceAsync smsServiceAsync)
+        {
+            _smsService = smsService;
+            _smsServiceAsync = smsServiceAsync;
+        }
     [HttpPost]
         public IActionResult Index(CreateSmsModel createSmsModel)
         {

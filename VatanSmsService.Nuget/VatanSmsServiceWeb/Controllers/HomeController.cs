@@ -32,7 +32,11 @@ namespace VatanSmsServiceWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateSmsModel createSmsModel)
         {
-           
+            createSmsModel.api_url = "https://api.vatansms.net/api/v1/1toN";
+            createSmsModel.api_id = "******************";
+            createSmsModel.api_key = "**************";
+            createSmsModel.message_type = "normal";
+            createSmsModel.sender = "berjcode";
 
             var result = await _smsServiceAsync.SendTextMessageReturnStringAsync(createSmsModel);
             return View(result);
