@@ -80,6 +80,14 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
     * There are 4 different types of returning methods. You can use it according to your needs.
     * You can carry out your transactions using the Createsms model. This model is available in the package.
     * You must enter your own ID and keys that you received from vatansms.
+    # Index.html
+   ```
+   <form   asp-controller="Home" asp-action="Index" >
+    <input type="text" #Message name="message" />
+    <input type="text" #Numbers name="phones" />
+    <button type="submit" class="btn btn-dark"> gönder</button>
+  </form>
+   ```
    # Controller
    ```
         private readonly ISmsService _smsService;
@@ -124,6 +132,25 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
             ResponseContent = response.Content
         };
     }
+   ```
+     # Example Send Multi Messages
+   ```
+     // If you send it directly as string array type it will be accepted. This is just an example.
+     [HttpPost]
+        public IActionResult Index(CreateSmsModel createSmsModel)
+        {
+            string[] phone = new string[] {"0543********", "053*******" };
+
+            createSmsModel.api_url = "https://api.vatansms.net/api/v1/1toN";
+            createSmsModel.api_id = "**************";
+            createSmsModel.api_key = "*************";
+            createSmsModel.message_type = "normal";
+            createSmsModel.sender = "berjcode";
+            createSmsModel.phones = phone;
+            var result =  _smsService.SendTextMessage(createSmsModel);
+            return View(result);
+        }
+        
    ```
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/berjcode/VatanSmsService/blob/main/LICENSE
