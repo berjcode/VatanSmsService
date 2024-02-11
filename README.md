@@ -17,16 +17,16 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
 # Use 
 ## Method Review
 ```
-* `bool SendTextMessageReturnBool(string message, List<string> numbers, CreateSmsModel createSmsModel);`
+* `bool SendTextMessageReturnBool(CreateSmsModel createSmsModel);`
   - It sends an SMS and returns `true` if the sending is successful, otherwise `false`.
 
-* `string SendTextMessageReturnString(string message, List<string> numbers, CreateSmsModel createSmsModel);`
+* `string SendTextMessageReturnString(CreateSmsModel createSmsModel);`
   - It sends an SMS and returns "Success" if the sending is successful, or "Failure" if not.
 
-* `SmsMessageResult SendTextMessage(string message, List<string> numbers, CreateSmsModel createSmsModel);`
+* `SmsMessageResult SendTextMessage(CreateSmsModel createSmsModel);`
   - Sends an SMS and returns the sending result as an `SmsMessageResult` object.
 
-* `RestResponse SendTextMessageReturnResponse(string message, List<string> numbers, CreateSmsModel createSmsModel);`
+* `RestResponse SendTextMessageReturnResponse(CreateSmsModel createSmsModel);`
   - Sends SMS and returns API response as `RestResponse` object.
 ```
 ## SmsMessageResult Review
@@ -37,6 +37,19 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
     public string ResponseContent { get; set; }
 }
 ```
+## CreateSmsModel Review
+```
+ public class CreateSmsModel
+{
+    public string api_id { get; set; } 
+    public string api_key { get; set; } 
+    public string api_url { get; set; } 
+    public string message { get; set; }
+    public string message_type { get; set; }
+    public string sender { get; set; }
+    public string[] phones { get; set; }
+}
+```
 ## Warning
    * Dependency  Packages
    ```
@@ -45,17 +58,17 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
    ```
   ## IVatanSmsServiceAsync Methods
    ```
-    Task<bool> SendTextMessageReturnBoolAsync(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    Task<SmsMessageResult> SendTextMessageAsync(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    Task<string> SendTextMessageReturnStringAsync(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    Task<RestResponse> SendTextMessageReturnResponseAsync(string message, List<string> numbers, CreateSmsModel createSmsModel);
+    Task<bool> SendTextMessageReturnBoolAsync(CreateSmsModel createSmsModel);
+    Task<SmsMessageResult> SendTextMessageAsync(CreateSmsModel createSmsModel);
+    Task<string> SendTextMessageReturnStringAsync(CreateSmsModel createSmsModel);
+    Task<RestResponse> SendTextMessageReturnResponseAsync(CreateSmsModel createSmsModel);
    ```
   ## IVatanSmsService
    ```
-    bool SendTextMessageReturnBool(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    string SendTextMessageReturnString(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    SmsMessageResult SendTextMessage(string message, List<string> numbers, CreateSmsModel createSmsModel);
-    RestResponse SendTextMessageReturnResponse(string message, List<string> numbers, CreateSmsModel createSmsModel);
+    bool SendTextMessageReturnBool(CreateSmsModel createSmsModel);
+    string SendTextMessageReturnString(CreateSmsModel createSmsModel);
+    SmsMessageResult SendTextMessage(CreateSmsModel createSmsModel);
+    RestResponse SendTextMessageReturnResponse(CreateSmsModel createSmsModel);
    ```
    ## Use
     * First, register the service in program.cs.
