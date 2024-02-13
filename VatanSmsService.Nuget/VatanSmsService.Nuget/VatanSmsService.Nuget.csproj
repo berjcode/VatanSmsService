@@ -6,21 +6,34 @@
     <Nullable>enable</Nullable>
     <PackageId>VatanSmsService.Nuget</PackageId>
     <Title>VatanSmsService</Title>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <Authors>berjcode</Authors>
     <Company>berjcode</Company>
     <Product>VatanSmsService</Product>
-    <Description>This package provides ready-made methods for those using the vatansms API. Codes for similar APIs can be reviewed and edited</Description>
+    <Description>
+Merhaba;
+VatanSmsService.Nuget paketi kullanarak hem senkron hem de asenkron yöntemlerle çok sayıda alıcıya toplu veya tekli sms gönderimi yüksek performansla yapılabilmektedir. 
+Mesajlarınızın iletim raporlarını alabilir ve ileri tarihli mesajlar gönderebilirsiniz. 
+Bu hizmeti kullanabilmek için VatanSMS.Net tarafından sağlanan hesabınız olmalıdır.
+
+Hello;
+This package includes message sending methods for those using the VatanSms API and similar APIs.
+Send a single or bulk sms through Turkey 's leading Sms service provider VatanSMS.
+You will need to have an active account on VatanSMS.Net platform and then you can easily send SMS using this package. Add the 'VatanSmsService' class to your project and then send SMS using the following methods:
+
+*Please note that you can send sms only to Turkish +90 country code mobile phone numbers.</Description>
     <Copyright>berjcode</Copyright>
     <PackageProjectUrl>https://github.com/berjcode/VatanSmsService</PackageProjectUrl>
     <PackageIcon>Logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/berjcode/VatanSmsService</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>sms, service, smsservice, vatansms</PackageTags>
+    <PackageTags>sms,, toplusms, bulk, toplu, mesaj, sms service smsservice vatansms</PackageTags>
     <PackageReleaseNotes>First Version</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

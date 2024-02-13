@@ -2,17 +2,27 @@
 
 [![MIT License][license-shield]][license-url]
 
-Hello! This package includes message sending methods for those using the VatanSms API and similar APIs.
+Merhaba;
+VatanSmsService.Nuget paketi kullanarak hem senkron hem de asenkron yöntemlerle çok sayıda alıcıya toplu veya tekli sms gönderimi yüksek performansla yapılabilmektedir. 
+Mesajlarınızın iletim raporlarını alabilir ve ileri tarihli mesajlar gönderebilirsiniz. 
+Bu hizmeti kullanabilmek için VatanSMS.Net tarafından sağlanan hesabınız olmalıdır.
+
+Hello;
+By using VatanSmsService.Nuget package, bulk or single SMS sending can be done with high performance to many recipients with both synchronous and asynchronous methods.
+You can get delivery reports of your messages and send future messages.
+To use this service, you must have an account provided by VatanSMS.Net.
+
+*Please note that you can send sms only to Turkish +90 country code mobile phone numbers.
 
 Errors are corrected as a result of feedback.
 
 You can easily send SMS using this package. First, add the 'VatanSmsService' class to your project and then send SMS using the following methods:
-# VatanSmsService.Nuget 1.0.0
+# VatanSmsService.Nuget 1.0.2
 # Version
 .net 7.0
 # Install
 ```
-  dotnet add package VatanSmsService.Nuget --version 1.0.0
+  dotnet add package VatanSmsService.Nuget --version 1.0.2
 ```
 # Use 
 ## Method Review
