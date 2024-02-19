@@ -45,7 +45,20 @@ You can easily send SMS using this package. First, add the 'VatanSmsService' cla
 {
     public bool Success { get; set; }
     public string ResponseContent { get; set; }
+    public ResponseStatus ResponseStatusCode { get; set; }
+    public Exception ErrorException { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
 }
+
+ return new SmsMessageResult
+        {
+            Success = IsSuccessful(response),
+            ResponseContent = response.Content,
+            ResponseStatusCode = response.ResponseStatus,
+            ErrorException = response.ErrorException,
+            StatusCode = response.StatusCode
+        };
+
 ```
 ## CreateSmsModel Review
 ```
