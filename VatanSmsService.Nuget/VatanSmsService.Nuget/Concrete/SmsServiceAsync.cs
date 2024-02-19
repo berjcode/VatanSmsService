@@ -15,7 +15,9 @@ public class SmsServiceAsync : ISmsServiceAsync
         return new SmsMessageResult
         {
             Success = IsSuccessful(response),
-            ResponseContent = response.Content
+            ResponseStatusCode = response.ResponseStatus,
+            ErrorException = response.ErrorException,
+            StatusCode = response.StatusCode
         };
     }
 

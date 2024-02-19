@@ -23,7 +23,10 @@ public class SmsService : ISmsService
         return new SmsMessageResult
         {
             Success = IsSuccessful(response),
-            ResponseContent = response.Content
+            ResponseContent = response.Content,
+            ResponseStatusCode = response.ResponseStatus,
+            ErrorException = response.ErrorException,
+            StatusCode = response.StatusCode
         };
     }
 
@@ -78,7 +81,7 @@ public class SmsService : ISmsService
         return response;
     }
 
-    // Helper Methods
+    // Helpers Methods
     private RestRequest CreateRestRequest(string _apiUrl)
     {
         var request = new RestRequest(_apiUrl, Method.Post);

@@ -17,9 +17,9 @@ Mesajlarınızın iletim raporlarını alabilir ve ileri tarihli mesajlar gönde
 Bu hizmeti kullanabilmek için VatanSMS.Net tarafından sağlanan hesabınız olmalıdır.
 
 Hello;
-This package includes message sending methods for those using the VatanSms API and similar APIs.
-Send a single or bulk sms through Turkey 's leading Sms service provider VatanSMS.
-You will need to have an active account on VatanSMS.Net platform and then you can easily send SMS using this package. Add the 'VatanSmsService' class to your project and then send SMS using the following methods:
+By using VatanSmsService.Nuget package, bulk or single SMS sending can be done with high performance to many recipients with both synchronous and asynchronous methods.
+You can get delivery reports of your messages and send future messages.
+To use this service, you must have an account provided by VatanSMS.Net.
 
 *Please note that you can send sms only to Turkish +90 country code mobile phone numbers.</Description>
     <Copyright>berjcode</Copyright>
